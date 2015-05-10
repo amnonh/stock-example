@@ -1,0 +1,168 @@
+{  
+   "apiVersion":"0.0.1",
+   "swaggerVersion":"1.2",
+   "basePath":"{{Protocol}}://{{Host}}",
+   "resourcePath":"/exchange",
+   "produces":[  
+      "application/json"
+   ],
+   "apis":[  
+      {  
+         "path":"/exchange/stock/{stockid}/",
+         "operations":[  
+            {  
+               "method":"GET",
+               "summary":"Returns the stock last quote price",
+               "type":"double",
+               "nickname":"get_price",
+               "produces":[  
+                  "application/json"
+               ],
+               "parameters":[  
+                  {  
+                     "name":"stockid",
+                     "description":"The stock ID",
+                     "required":true,
+                     "allowMultiple":false,
+                     "type":"string",
+                     "paramType":"path"
+                  }
+               ]
+            },
+             {  
+               "method":"POST",
+               "summary":"Buy or sell a stock",
+               "type":"long",
+               "nickname":"buy_sell_cmnd",
+               "produces":[  
+                  "application/json"
+               ],
+               "parameters":[                    
+                  {  
+                     "name":"stockid",
+                     "description":"The account ID",
+                     "required":true,
+                     "allowMultiple":false,
+                     "type":"string",
+                     "paramType":"path"
+                  },
+                  {  
+                     "name":"op",
+                     "description":"Buy or Sell",
+                     "required":true,
+                     "allowMultiple":false,
+                     "type":"string",
+                     "enum":[  
+                        "Buy",
+                        "Sell"
+                     ],
+                     "paramType":"query"
+                  },
+                  {  
+                     "name":"price",
+                     "description":"The price to buy or sell",
+                     "required":true,
+                     "allowMultiple":false,
+                     "type":"string",
+                     "paramType":"query"
+                  },
+                  {  
+                     "name":"amount",
+                     "description":"The amount to buy or sell",
+                     "required":true,
+                     "allowMultiple":false,
+                     "type":"string",
+                     "paramType":"query"
+                  }
+               ]
+            },
+             {  
+               "method":"DELETE",
+               "summary":"Cancel a buy or sell stock",
+               "type":"long",
+               "nickname":"cancel_cmnd",
+               "produces":[  
+                  "application/json"
+               ],
+               "parameters":[                    
+                  {  
+                     "name":"stockid",
+                     "description":"The account ID",
+                     "required":true,
+                     "allowMultiple":false,
+                     "type":"string",
+                     "paramType":"query"
+                  },
+                  {  
+                     "name":"transaction_id",
+                     "description":"The transaction ID that need to be canceled",
+                     "required":false,
+                     "allowMultiple":false,
+                     "type":"string",
+                     "paramType":"query"
+                  }
+               ]
+            }
+         ]
+      },
+      {  
+         "path":"/exchange/transaction/{stockid}/{transaction}",
+         "operations":[  
+            {  
+               "method":"GET",
+               "summary":"Returns a transaction status",
+               "type":"string",
+			   "enum":[  
+               	"WAITING",
+                "PARTIAL",
+                "DONE"
+               ],
+               "nickname":"get_transaction",
+               "produces":[  
+                  "application/json"
+               ],
+               "parameters":[  
+                  {  
+                     "name":"stockid",
+                     "description":"The stock ID",
+                     "required":true,
+                     "allowMultiple":false,
+                     "type":"string",
+                     "paramType":"path"
+                  },
+                  {  
+                     "name":"transaction",
+                     "description":"The transaction ID",
+                     "required":true,
+                     "allowMultiple":false,
+                     "type":"long",
+                     "paramType":"path"
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "models" : {
+   	"result" : {
+   		"id":"result",
+   		"properties": {
+   		   "status":{
+   				"type":"string",
+			   	"enum":[  
+               	"WAITING",
+                "PARTIAL",
+                "DONE"
+               ]
+               },
+               "reamining": {
+               	"type":"long"
+               },
+               "transactionid": {
+               	"type":"long"
+               }
+        }
+   	}
+   }
+   
+}
