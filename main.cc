@@ -231,7 +231,7 @@ int main(int ac, char** av) {
                 auto&& config = app.configuration();
                 uint16_t port = config["port"].as<uint16_t>();
                 auto server = make_shared<http_server_control>();
-                auto rb = make_shared<api_registry_builder>("apps/stock/");
+                auto rb = make_shared<api_registry_builder>("./");
                 sechange->start().then([server] {
                     return server->start();
                 }).then([server, sechange, rb] {
