@@ -1,8 +1,8 @@
 SEASTAR = ~/seastar
-
+TARGET = stock
 module: all
 
-all: init main
+all: init ${TARGET}
 
 init:
 	mkdir -p gen
@@ -10,9 +10,10 @@ init:
 gen/stock.json.hh:
 	${SEASTAR}/json/json2code.py -f stock.json --outdir gen
 
-main: gen/stock.json.hh
-	c++ `pkg-config --cflags --libs ${SEASTAR}/build/release/seastar.pc` main.cc
+${TARGET}: gen/stock.json.hh
+	c++ `pkg-config --cflags --libs ${SEASTAR}/build/release/seastar.pc` main.cc -o ${TARGET}
 	
 clean:
 	rm -rf gen
+	rm ${TARGET}
 .SECONDARY:
