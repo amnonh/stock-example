@@ -1,4 +1,4 @@
-SEASTAR = ~/seastar
+SEASTAR ?= ~/seastar
 TARGET = stock
 module: all
 
@@ -15,5 +15,7 @@ ${TARGET}: gen/stock.json.hh
 	
 clean:
 	rm -rf gen
-	rm ${TARGET}
+	rm -f ${TARGET}
 .SECONDARY:
+
+.PHONY: all clean
